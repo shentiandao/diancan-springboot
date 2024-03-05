@@ -1,0 +1,59 @@
+<html>
+<#include "../zujian/top.ftlh">
+
+<!-- 引入 Chart.js 库 -->
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+<body>
+<div id="wrapper" class="toggled">
+    <!-- 其他内容... -->
+    <div id="page-content-wrapper" class="container">
+        <div class="row clearfix">
+            <!-- 每月收入 -->
+            <div class="col-md-10 offset-md-1 column">
+                <!-- 创建一个 canvas 元素来显示图表 -->
+                <canvas id="incomeChart"></canvas>
+            </div>
+            <!-- 其他内容... -->
+        </div>
+    </div>
+</div>
+
+<script>
+// 获取 canvas 元素
+var ctx = document.getElementById('incomeChart').getContext('2d');
+
+// 数据
+var labels = [];  // 月份
+var data = [];  // 月度收入
+
+<#list totalMoneyList as money>
+    labels.push("${money.time!''}");
+    data.push(${money.totalMoney!''});
+</#list>
+
+// 创建图表
+var incomeChart = new Chart(ctx, {
+    type: 'line',
+    data: {
+        labels: labels,
+        datasets: [{
+            label: '月度收入',
+            data: data,
+            backgroundColor: 'rgba(75, 192, 192, 0.2)',
+            borderColor: 'rgba(75, 192, 192, 1)',
+            borderWidth: 1
+        }]
+    },
+    options: {
+        scales: {
+            y: {
+                beginAtZero: true
+            }
+        }
+    }
+});
+</script>
+
+</body>
+</html>

@@ -1,0 +1,4 @@
+spring:
+  profiles:
+    active: test  #本地电脑运行测试环境
+#    active: prod
